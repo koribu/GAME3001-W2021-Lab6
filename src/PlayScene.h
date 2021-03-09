@@ -20,6 +20,7 @@ public:
 
 	// Scene LifeCycle Functions
 	virtual void draw() override;
+
 	virtual void update() override;
 	virtual void clean() override;
 	virtual void handleEvents() override;
@@ -35,6 +36,9 @@ private:
 	Target* m_pTarget;
 	Ship* m_pShip;
 	Obstacle* m_pObstacle;
+	Obstacle* m_pObstacle1;
+	Obstacle* m_pObstacle2;
+	void m_CheckShipLOS(DisplayObject*);
 	
 	
 };

@@ -28,10 +28,35 @@ void PlayScene::draw()
 	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
 }
 
+void PlayScene::m_CheckShipLOS(DisplayObject* targetObject)
+{
+	auto ShipToTargetDistance = Util::distance(m_pShip->getTransform()->position, targetObject->getTransform()->position);
+	if(ShipToTargetDistance<=m_pShip->getLOSDistance())
+	{
+		std::vector<DisplayObject*> contactList;
+		for (auto object : getDisplayList())
+		{
+			auto ShipToObjectDistance = Util::distance(m_pShip->getTransform()->position, object->getTransform()->position);
+			if(ShipToObjectDistance<=ShipToTargetDistance )
+			{
+				if(object->getType() != m_pShip->getType() && object->getType() != targetObject->getType())
+				{
+					contactList.push_back(object);
+				}
+			}
+		}
+		contactList.push_back(targetObject);
+		auto hasLOS = CollisionManager::LOSCheck(m_pShip->getTransform()->position, 
+		                                         m_pShip->getTransform()->position + m_pShip->getCurrentDirection() * m_pShip->getLOSDistance(), contactList, targetObject);
+
+		m_pShip->setHasLOS(hasLOS);
+	}
+}
+
 void PlayScene::update()
 {
 	updateDisplayList();
-
+	m_CheckShipLOS(m_pTarget);
 
 }
 
@@ -87,16 +112,25 @@ void PlayScene::start()
 	m_pShip->getTransform()->position = glm::vec2(200.0f, 300.0f);
 	addChild(m_pShip,2);
 	
-	// added the target to the scene a goal
-	m_pTarget = new Target();
-	m_pTarget->getTransform()->position = glm::vec2(600.0f, 300.0f);
-	addChild(m_pTarget);
 
 	m_pObstacle = new Obstacle();
 	m_pObstacle->getTransform()->position = glm::vec2(400.0f, 300.0f);
 	addChild(m_pObstacle);
-	
-	
+
+	m_pObstacle1 = new Obstacle();
+	m_pObstacle1->getTransform()->position = glm::vec2(200, 300.0f);
+	addChild(m_pObstacle1);
+
+	m_pObstacle2 = new Obstacle();
+	m_pObstacle2->getTransform()->position = glm::vec2(400.0f, 100);
+	addChild(m_pObstacle2);
+
+
+
+	m_pTarget = new Target();
+	m_pTarget->getTransform()->position = glm::vec2(600.0f, 300.0f);
+	addChild(m_pTarget);
+
 }
 
 void PlayScene::GUI_Function() 
@@ -129,10 +163,10 @@ void PlayScene::GUI_Function()
 	}
 	
 	static int targetPosition[] = { m_pTarget->getTransform()->position.x, m_pTarget->getTransform()->position.y };
-	if(ImGui::SliderInt2("Target Position", targetPosition, 0, Config::COL_NUM - 1))
+	if(ImGui::SliderInt2("Target Position", targetPosition, 0, 800))
 	{
-		m_pTarget->getTransform()->position.x = shipRotation[0];
-		m_pTarget->getTransform()->position.y = shipRotation[1];
+		m_pTarget->getTransform()->position.x = targetPosition[0];
+		m_pTarget->getTransform()->position.y = targetPosition[1];
 	}
 	
 	ImGui::Separator();

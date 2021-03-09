@@ -319,6 +319,25 @@ bool CollisionManager::pointRectCheck(const glm::vec2 point, const glm::vec2 rec
 	return false;
 }
 
+bool CollisionManager::LOSCheck(glm::vec2 startPoint, glm::vec2 endPoint, const std::vector<DisplayObject*>& objects,
+	DisplayObject* target)
+{
+	for (auto object : objects)
+	{
+		auto objectOffset = glm::vec2(object->getWidth() * .5, object->getHeight() * .5);
+		if(lineRectCheck(startPoint,endPoint,object->getTransform()->position - objectOffset,object->getWidth(),object->getHeight()))
+		{
+			if (object->getType() == target->getType())
+			{
+				return true;
+			}
+			
+			return false;
+		}
+	}
+	return false; 
+}
+
 
 CollisionManager::CollisionManager()
 = default;
