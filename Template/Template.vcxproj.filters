@@ -31,9 +31,6 @@
     <Filter Include="DOCS">
       <UniqueIdentifier>{a44d29c3-2835-4901-a310-0039121b84b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Navigation">
-      <UniqueIdentifier>{13ea8f47-1b92-4ed5-af2c-f47f31c4fd1f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StartScene.cpp">
@@ -126,17 +123,14 @@
     <ClCompile Include="..\src\Obstacle.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Tile.cpp">
-      <Filter>Navigation</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\NavigationObject.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ship.cpp">
-      <Filter>Navigation</Filter>
+      <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Target.cpp">
-      <Filter>Navigation</Filter>
+      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,26 +266,23 @@
     <ClInclude Include="..\src\Obstacle.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Tile.h">
-      <Filter>Navigation</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\NeighbourTile.h">
       <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="..\src\NavigationObject.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ship.h">
-      <Filter>Navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Target.h">
-      <Filter>Navigation</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Heuristic.h">
       <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="..\src\TileStatus.h">
       <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Target.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ship.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
